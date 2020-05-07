@@ -13,7 +13,11 @@ once the app is built it is an immutable artifact. this artifact usually has qui
 
 `tag` is run right _before_ building an artifact to include additional useful intel about it.
 
-by the time artifact is built it would have an `about.edn` file that can be looked at by the app at runtime.
+by the time artifact is built it would have an `about.edn` file that can be looked at by the app at runtime:
+
+<img src="doc/img/hubble-about.png" width="600px">
+
+`described-at` in this case would be a build time.
 
 ## how
 
@@ -123,6 +127,28 @@ this way `tag` can also be used with lein:
 ```
 
 boot, make, and other build tools.
+
+## composing tags
+
+one intersing side effect of tagging libs or dependencies with `tag` is that the final app jar / uberjar has them all:
+
+```bash
+$ jar -tvf target/hubble-standalone.jar | grep about 
+   369 Thu May 07 01:18:32 EDT 2020 META-INF/hubble/about.edn
+   331 Thu May 07 01:06:21 EDT 2020 META-INF/tag/about.edn
+   301 Thu May 07 01:02:25 EDT 2020 META-INF/mount/about.edn
+   395 Thu May 07 01:01:42 EDT 2020 META-INF/cprop/about.edn
+   384 Thu May 07 01:01:57 EDT 2020 META-INF/lasync/about.edn
+   ...
+```
+
+hence building something like `/about/[dependency-name]` app endponts is straightforward and allows to have reliable intel about not just the app itself but its dependencies as well.
+
+## yes, but why not in config?
+
+configuration is usually overriden by system props, ENV vars, consul, etcd, etc.
+
+the idea behind `tag` is to make sure the built artifact "describes itself consistently", or [constantly](https://clojuredocs.org/clojure.core/constantly) as we say in Clojure circles.
 
 ## License
 
