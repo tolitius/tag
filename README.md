@@ -107,7 +107,15 @@ $ cat about.edn
 
 great success.
 
-this way `tag` can also be used with boot, lein, make, and other build tools.
+this way `tag` can also be used with lein:
+
+```clojure
+:prep-tasks [["run" "-m" "tag.core/-main"
+                         "hubble" "I explore new worlds"]]
+
+```
+
+boot, make, and other build tools.
 
 ## License
 
