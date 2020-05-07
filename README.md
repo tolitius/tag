@@ -153,6 +153,34 @@ $ jar -tvf target/hubble-standalone.jar | grep about
 
 hence building something like `/about/[dependency-name]` app endponts is straightforward and allows to have reliable intel about not just the app itself but its dependencies as well.
 
+## access intel
+
+a likely http route (in this case [reitit](https://github.com/metosin/reitit)) would look like this:
+
+```clojure
+["/about"
+ {:get (constantly
+         {:status 200
+          :body   (tools/edn-resource "META-INF/hubble/about.edn")})}]]
+```
+
+`tools/edn-resource` might be something like this:
+
+```clojure
+(ns app.tools
+  (:require [clojure.java.io :as io]
+            [clojure.edn :as edn]))
+
+(defn slurp-resource [path]
+  (-> path
+      io/resource
+      slurp))
+
+(defn edn-resource [path]
+  (-> (slurp-resource path)
+      edn/read-string))
+```
+
 ## yes, but why not in config?
 
 configuration is usually overriden by system props, ENV vars, consul, etcd, etc.
