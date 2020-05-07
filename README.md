@@ -11,9 +11,9 @@ once the app is built it is an immutable artifact. this artifact usually has qui
 
 > `name-version.jar` is not exactly very telling.
 
-`tag` could be run right _before_ building an artifact to include additional useful intel about it.
+`tag` is run right _before_ building an artifact to include additional useful intel about it.
 
-by the time artifact is built it would have an `about.edn` file, usually somewhere at "`META-INF/`", that can be looked at by the app at runtime.
+by the time artifact is built it would have an `about.edn` file that can be looked at by the app at runtime.
 
 ## how
 
@@ -46,9 +46,9 @@ and how to export it:
 :intel-exported
 ```
 
-once the jar is built the `edn` above will (by default) live under `META-INF/about.edn`.
+once the jar is built the `edn` above will (by default) live _inside_ the jar in `./about.edn`.
 
-so for example if your, say http, app has an `/about` endpoint, it could display the immutable intel above.
+so for example if your, say http, app has an `/about` endpoint, it could read this file on start or at runtime and display the immutable intel above.
 
 ## show me
 
@@ -68,7 +68,7 @@ it also has a `:jar` alias with [an addition](https://github.com/tolitius/tag/bl
 :extra-paths ["target/META-INF"]
 ```
 
-in order to pick up the intel when building  a jar.
+`tag` will place "`about.edn`" to `target/META-INF` in order for a `jar` task to pick it up during the build.
 
 hence in order to tag, build and deploy we can do:
 
