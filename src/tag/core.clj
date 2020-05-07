@@ -19,6 +19,7 @@
 (defn- scoop-git-intel []
   (-> {:commit-id (dosh "git rev-parse --short HEAD")
        :version/tag (dosh "git describe --abbrev=0")
+       :repo-url (dosh "git config --get remote.origin.url")
        :commit-time (dosh "git log -1 --format=%cd")
        "commit human (or not)" (dosh "git log -1 --pretty=format:'%an'")
        :commit-message (dosh "git log -1 --pretty=%B")}
