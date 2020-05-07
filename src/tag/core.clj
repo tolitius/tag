@@ -2,6 +2,17 @@
   (:require [clojure.string :as s]
             [clojure.java.shell :as sh]))
 
+(defn m {:about {:app-name "hubble",
+                 "what do I do?" "I explore new worlds"},
+         :git
+         {:commit-id "8b15218",
+          :version/tag "v0.1.42",
+          :repo-url "git@github.com:tolitius/hubble.git"
+          :commit-time "Wed May 6 20:26:03 2020 -0400",
+          "commit human (or not)" "'anatoly'",
+          :commit-message "readjust a low gain antena for the cat's eye nebula"},
+         :described-at #inst "2020-05-07T00:55:03.260-00:00"})
+
 (defn- fmv
   "apply f to each value v of map m"
   [m f]
