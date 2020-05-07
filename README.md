@@ -46,7 +46,7 @@ and how to export it:
 :intel-exported
 ```
 
-once the jar is built the `edn` above will (by default) live _inside_ the jar in `./about.edn`.
+once the jar is built the `edn` above will (by default) live _inside_ the jar in `./META-INF/[app-name]/about.edn`.
 
 so for example if your, say http, app has an `/about` endpoint, it could read this file on start or at runtime and display the immutable intel above.
 
@@ -54,7 +54,7 @@ so for example if your, say http, app has an `/about` endpoint, it could read th
 
 `tag` _uses itself_ to include the intel in itself right before it is built. so let's look at what it does.
 
-it has [an alias](https://github.com/tolitius/tag/blob/7384178e9b6228c653a7f4cf014962f533752829/deps.edn#L4) in deps.edn:
+it has [an alias](https://github.com/tolitius/tag/blob/2bf572c5cb3fa95d1868ea2e0b2814670e21a648/deps.edn#L4) in deps.edn:
 
 ```clojure
 :tag {:main-opts ["-m" "tag.core" "tag" "I tag apps with immutable intel"]}
@@ -62,18 +62,18 @@ it has [an alias](https://github.com/tolitius/tag/blob/7384178e9b6228c653a7f4cf0
 
 which calls out to `tag` and exports the intel.
 
-it also has a `:jar` alias with [an addition](https://github.com/tolitius/tag/blob/7384178e9b6228c653a7f4cf014962f533752829/deps.edn#L6) of an `:extra-paths`:
+it also has a `:jar` alias with [an addition](https://github.com/tolitius/tag/blob/2bf572c5cb3fa95d1868ea2e0b2814670e21a648/deps.edn#L6) of an `:extra-paths`:
 
 ```clojure
-:extra-paths ["target/META-INF"]
+:extra-paths ["target/about"]
 ```
 
-`tag` will place "`about.edn`" to `target/META-INF` in order for a `jar` task to pick it up during the build.
+`tag` will place "`about.edn`" to `target/about/META-INF` in order for a `jar` task to pick it up during the build.
 
-hence in order to tag, build and deploy we can do:
+hence in order to tag and build we can do:
 
 ```bash
-$ clojure -A:tag -A:jar -A:deploy
+$ clojure -A:tag -A:jar
 ```
 
 ### look inside
@@ -82,27 +82,28 @@ let's look at what inside this newly built `tag.jar`:
 
 ```bash
 $ jar -tvf tag.jar
-   322 Wed May 06 21:38:22 EDT 2020 about.edn            ## <<< oh.. look who is here
-     0 Wed May 06 21:47:32 EDT 2020 tag/
-  1346 Wed May 06 21:35:25 EDT 2020 tag/core.clj
-     0 Wed May 06 21:47:33 EDT 2020 META-INF/
-    58 Wed May 06 21:47:32 EDT 2020 META-INF/MANIFEST.MF
-     0 Wed May 06 21:47:33 EDT 2020 META-INF/maven/
-     0 Wed May 06 21:47:33 EDT 2020 META-INF/maven/tolitius/
-     0 Wed May 06 21:47:33 EDT 2020 META-INF/maven/tolitius/tag/
-   110 Wed May 06 21:47:32 EDT 2020 META-INF/maven/tolitius/tag/pom.properties
-  1711 Wed May 06 21:47:32 EDT 2020 META-INF/maven/tolitius/tag/pom.xml
+     0 Thu May 07 00:17:10 EDT 2020 META-INF/
+     0 Thu May 07 00:17:10 EDT 2020 META-INF/tag/
+   321 Thu May 07 00:17:06 EDT 2020 META-INF/tag/about.edn     ## <<< oh.. look who is here
+     0 Thu May 07 00:17:10 EDT 2020 tag/
+  1769 Thu May 07 00:16:58 EDT 2020 tag/core.clj
+    58 Thu May 07 00:17:10 EDT 2020 META-INF/MANIFEST.MF
+     0 Thu May 07 00:17:10 EDT 2020 META-INF/maven/
+     0 Thu May 07 00:17:10 EDT 2020 META-INF/maven/tolitius/
+     0 Thu May 07 00:17:10 EDT 2020 META-INF/maven/tolitius/tag/
+   110 Thu May 07 00:17:10 EDT 2020 META-INF/maven/tolitius/tag/pom.properties
+  1711 Thu May 07 00:17:10 EDT 2020 META-INF/maven/tolitius/tag/pom.xml
 ```
 
 ```bash
-$ jar -xvf tag.jar about.edn
- inflated: about.edn
+$ jar -xvf tag.jar META-INF/tag/about.edn
+ inflated: META-INF/tag/about.edn
 ```
 
 ```bash
-$ cat about.edn
+$ cat META-INF/tag/about.edn
 
-{:about {:app-name "tag", "what do I do?" "I tag apps with immutable intel"}, :git {:commit-id "45c33d3", :version/tag "v0.1.0", :commit-time "Wed May 6 21:35:25 2020 -0400", "commit human (or not)" "'anatoly'", :commit-message "support apps with no tags/other parts"}, :described-at #inst "2020-05-07T01:38:22.880-00:00"}
+{:about {:app-name "tag", "what do I do?" "I tag apps with immutable intel"}, :git {:commit-id "58df09d", :version/tag "v0.1.0", :commit-time "Wed May 6 23:41:33 2020 -0400", "commit human (or not)" "'Anatoly'", :commit-message "[docs]: add lein :prep-tasks example"}, :described-at #inst "2020-05-07T04:17:06.081-00:00"}
 ```
 
 great success.
