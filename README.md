@@ -112,7 +112,9 @@ this way `tag` can also be used with lein:
 
 ```clojure
 :prep-tasks [["run" "-m" "tag.core/-main"
-                         "hubble" "I explore new worlds"]]
+                         "hubble" "I explore new worlds"]
+             ["compile"]]
+
 
 :jar {:resource-paths ["target/about"] ;; ... }
 ;; or and uberjar:
