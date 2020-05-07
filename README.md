@@ -73,7 +73,8 @@ it also has a `:jar` alias with [an addition](https://github.com/tolitius/tag/bl
 hence in order to tag and build we can do:
 
 ```bash
-$ clojure -A:tag -A:jar
+$ clj -A:tag
+$ clj -A:jar
 ```
 
 ### look inside
