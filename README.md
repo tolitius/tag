@@ -42,7 +42,7 @@ and how to export it:
 ```clojure
 => (-> (t/describe "hubble")
        t/export-intel)
-       
+
 :intel-exported
 ```
 
@@ -114,6 +114,9 @@ this way `tag` can also be used with lein:
 :prep-tasks [["run" "-m" "tag.core/-main"
                          "hubble" "I explore new worlds"]]
 
+:jar {:resource-paths ["target/about"] ;; ... }
+;; or and uberjar:
+:uberjar {:resource-paths ["target/about"] ;; ... }
 ```
 
 boot, make, and other build tools.
