@@ -1,7 +1,9 @@
 {:paths ["src"]
  :deps {} ;; for clarity
  :aliases
- {:jar {:extra-deps {seancorfield/depstar {:mvn/version "1.0.94"}}
+ {:tag {:main-opts ["-m" "tag.core" "tag" "I tag apps with immutable intel"]}
+  :jar {:extra-deps {seancorfield/depstar {:mvn/version "1.0.94"}}
+        :extra-paths ["target/META-INF"]
         :main-opts ["-m" "hf.depstar.jar" "tag.jar"]}
   :install {:extra-deps {deps-deploy {:mvn/version "0.0.9"}}
             :main-opts ["-m" "deps-deploy.deps-deploy" "install" "tag.jar"]}

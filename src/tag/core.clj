@@ -45,3 +45,13 @@
    (spit (str path "/about.edn")
          intel)
    :intel-exported))
+
+(defn -main [& args]
+  (when-not (< 2 (count args))
+    (throw (ex-info "tag takes two params: 'app-name' and 'description'" {:args-passed args})))
+  (let [[app-name & about] args]
+    (-> (describe app-name {:about (->> about
+                                        (interpose " ")
+                                        (apply str))})
+        export-intel)
+    (System/exit 0)))
