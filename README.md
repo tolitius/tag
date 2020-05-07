@@ -10,6 +10,7 @@ tagging apps with git and other intel
 - [show me](#show-me)
   - [look inside](#look-inside)
 - [composing tags](#composing-tags)
+- [access intel](#access-intel)
 - [yes, but why not in config?](#yes-but-why-not-in-config)
 - [license](#license)
 
