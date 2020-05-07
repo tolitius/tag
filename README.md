@@ -43,6 +43,7 @@ by the time artifact is built it would have an `about.edn` file that can be look
  :git
  {:commit-id "8b15218",
   :version/tag "v0.1.42",
+  :repo-url "git@github.com:tolitius/hubble.git",
   :commit-time "Wed May 6 20:26:03 2020 -0400",
   "commit human (or not)" "'anatoly'",
   :commit-message "readjust a low gain antena for the cat's eye nebula"},
@@ -116,7 +117,7 @@ $ jar -xvf tag.jar META-INF/tag/about.edn
 ```bash
 $ cat META-INF/tag/about.edn
 
-{:about {:app-name "tag", "what do I do?" "I tag apps with immutable intel"}, :git {:commit-id "58df09d", :version/tag "v0.1.0", :commit-time "Wed May 6 23:41:33 2020 -0400", "commit human (or not)" "'Anatoly'", :commit-message "[docs]: add lein :prep-tasks example"}, :described-at #inst "2020-05-07T04:17:06.081-00:00"}
+{:about {:app-name "tag", "what do I do?" "I tag apps with immutable intel"}, :git {:commit-id "58df09d", :version/tag "v0.1.0", :repo-url "git@github.com:tolitius/tag.git", :commit-time "Wed May 6 23:41:33 2020 -0400", "commit human (or not)" "'Anatoly'", :commit-message "[docs]: add lein :prep-tasks example"}, :described-at #inst "2020-05-07T04:17:06.081-00:00"}
 ```
 
 great success.
