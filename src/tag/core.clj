@@ -13,7 +13,7 @@
   (let [with-args (s/split cmd #" ")
         {:keys [out exit error] :as rs} (apply sh/sh with-args)]
     (if-not (zero? exit)
-      (println (str "(!) could not run \"" cmd "\" => " rs))
+      (println (str "(!) could not run \"" cmd "\" => " rs ", but have no fear: I will continue without it."))
       out)))
 
 (defn- scoop-git-intel []
@@ -39,13 +39,16 @@
 
 (defn export-intel
   ([intel]
-   (export-intel intel {:path "target/about"}))
-  ([intel {:keys [path]
-           :or {path "target/about"}}]
-   (dosh (str "mkdir -p " path))
-   (spit (str path "/about.edn")
-         intel)
-   :intel-exported))
+   (export-intel intel {}))
+  ([intel {:keys [app-name path filename]
+           :or {filename "about.edn"
+                app-name "noname"
+                path "target/about/META-INF/"}}]
+   (let [fpath (str path app-name "/")]
+     (dosh (str "mkdir -p " fpath))
+     (spit (str fpath filename)
+           intel)
+     {:intel-exported-to (str fpath filename)})))
 
 (defn -main [& args]
   (when (< (count args) 2)
@@ -54,5 +57,6 @@
     (-> (describe app-name {:about (->> about
                                         (interpose " ")
                                         (apply str))})
-        (export-intel {:path (str "target/about/META-INF/" app-name)}))
+        (export-intel {:app-name app-name})
+        println)
     (System/exit 0)))

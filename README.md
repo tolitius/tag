@@ -54,9 +54,9 @@ and how to export it:
 
 ```clojure
 => (-> (t/describe "hubble")
-       t/export-intel)
+       (t/export-intel {:app-name "tolitius/hubble"}))
 
-:intel-exported
+{:intel-exported-to "target/about/META-INF/tolitius/hubble/about.edn"}
 ```
 
 once the jar is built the `edn` above will (by default) live _inside_ the jar in `./META-INF/[app-name]/about.edn`.
@@ -67,10 +67,10 @@ so for example if your, say http, app has an `/about` endpoint, it could read th
 
 `tag` _uses itself_ to include the intel in itself right before it is built. so let's look at what it does.
 
-it has [an alias](https://github.com/tolitius/tag/blob/2bf572c5cb3fa95d1868ea2e0b2814670e21a648/deps.edn#L4) in deps.edn:
+it has [an alias](https://github.com/tolitius/tag/blob/master/deps.edn#L4) in deps.edn:
 
 ```clojure
-:tag {:main-opts ["-m" "tag.core" "tag" "I tag apps with immutable intel"]}
+:tag {:main-opts ["-m" "tag.core" "tolitius/tag" "I tag apps with immutable intel"]}
 ```
 
 which calls out to `tag` and exports the intel.
@@ -97,8 +97,8 @@ let's look at what inside this newly built `tag.jar`:
 ```bash
 $ jar -tvf tag.jar
      0 Thu May 07 00:17:10 EDT 2020 META-INF/
-     0 Thu May 07 00:17:10 EDT 2020 META-INF/tag/
-   321 Thu May 07 00:17:06 EDT 2020 META-INF/tag/about.edn     ## <<< oh.. look who is here
+     0 Thu May 07 00:17:10 EDT 2020 META-INF/tolitius/tag/
+   321 Thu May 07 00:17:06 EDT 2020 META-INF/tolitius/tag/about.edn     ## <<< oh.. look who is here
      0 Thu May 07 00:17:10 EDT 2020 tag/
   1769 Thu May 07 00:16:58 EDT 2020 tag/core.clj
     58 Thu May 07 00:17:10 EDT 2020 META-INF/MANIFEST.MF
@@ -110,14 +110,14 @@ $ jar -tvf tag.jar
 ```
 
 ```bash
-$ jar -xvf tag.jar META-INF/tag/about.edn
- inflated: META-INF/tag/about.edn
+$ jar -xvf tag.jar META-INF/tolitius/tag/about.edn
+ inflated: META-INF/tolitius/tag/about.edn
 ```
 
 ```bash
-$ cat META-INF/tag/about.edn
+$ cat META-INF/tolitius/tag/about.edn
 
-{:about {:app-name "tag", "what do I do?" "I tag apps with immutable intel"}, :git {:commit-id "58df09d", :version/tag "v0.1.0", :repo-url "git@github.com:tolitius/tag.git", :commit-time "Wed May 6 23:41:33 2020 -0400", "commit human (or not)" "'Anatoly'", :commit-message "[docs]: add lein :prep-tasks example"}, :described-at #inst "2020-05-07T04:17:06.081-00:00"}
+{:about {:app-name "tolitius/tag", "what do I do?" "I tag apps with immutable intel"}, :git {:commit-id "58df09d", :version/tag "v0.1.0", :repo-url "git@github.com:tolitius/tag.git", :commit-time "Wed May 6 23:41:33 2020 -0400", "commit human (or not)" "'Anatoly'", :commit-message "[docs]: add lein :prep-tasks example"}, :described-at #inst "2020-05-07T04:17:06.081-00:00"}
 ```
 
 great success.
@@ -143,11 +143,11 @@ one intersing side effect of tagging libs or dependencies with `tag` is that the
 
 ```bash
 $ jar -tvf target/hubble-standalone.jar | grep about
-   369 Thu May 07 01:18:32 EDT 2020 META-INF/hubble/about.edn
-   331 Thu May 07 01:06:21 EDT 2020 META-INF/tag/about.edn
-   301 Thu May 07 01:02:25 EDT 2020 META-INF/mount/about.edn
-   395 Thu May 07 01:01:42 EDT 2020 META-INF/cprop/about.edn
-   384 Thu May 07 01:01:57 EDT 2020 META-INF/lasync/about.edn
+   369 Thu May 07 01:18:32 EDT 2020 META-INF/tolitius/hubble/about.edn
+   331 Thu May 07 01:06:21 EDT 2020 META-INF/tolitius/tag/about.edn
+   301 Thu May 07 01:02:25 EDT 2020 META-INF/tolitius/mount/about.edn
+   395 Thu May 07 01:01:42 EDT 2020 META-INF/tolitius/cprop/about.edn
+   384 Thu May 07 01:01:57 EDT 2020 META-INF/tolitius/lasync/about.edn
    ...
 ```
 

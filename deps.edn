@@ -1,7 +1,7 @@
 {:paths ["src"]
  :deps {} ;; for clarity
  :aliases
- {:tag {:main-opts ["-m" "tag.core" "tag" "I tag apps with immutable intel"]}
+ {:tag {:main-opts ["-m" "tag.core" "tolitius/tag" "I tag apps with immutable intel"]}
   :jar {:extra-deps {seancorfield/depstar {:mvn/version "1.0.94"}}
         :extra-paths ["target/about"]
         :main-opts ["-m" "hf.depstar.jar" "tag.jar"]}
