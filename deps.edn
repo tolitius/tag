@@ -1,0 +1,9 @@
+{:paths ["src"]
+ :deps {} ;; for clarity
+ :aliases
+ {:jar {:extra-deps {seancorfield/depstar {:mvn/version "1.0.94"}}
+        :main-opts ["-m" "hf.depstar.jar" "tag.jar"]}
+  :install {:extra-deps {deps-deploy {:mvn/version "0.0.9"}}
+            :main-opts ["-m" "deps-deploy.deps-deploy" "install" "tag.jar"]}
+  :deploy {:extra-deps {deps-deploy {:mvn/version "0.0.9"}}
+           :main-opts ["-m" "deps-deploy.deps-deploy" "deploy" "tag.jar" "true"]}}}
