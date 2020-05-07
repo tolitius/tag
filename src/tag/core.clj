@@ -38,9 +38,9 @@
 
 (defn export-intel
   ([intel]
-   (export-intel intel {:path "target/META-INF"}))
+   (export-intel intel {:path "target/about"}))
   ([intel {:keys [path]
-           :or {path "target/META-INF"}}]
+           :or {path "target/about"}}]
    (dosh (str "mkdir -p " path))
    (spit (str path "/about.edn")
          intel)
@@ -53,5 +53,5 @@
     (-> (describe app-name {:about (->> about
                                         (interpose " ")
                                         (apply str))})
-        export-intel)
+        (export-intel {:path (str "target/about/META-INF/" app-name)}))
     (System/exit 0)))
