@@ -22,8 +22,9 @@
        :commit-time (dosh "git log -1 --format=%cd")
        "commit human (or not)" (dosh "git log -1 --pretty=format:'%an'")
        :commit-message (dosh "git log -1 --pretty=%B")}
-      (fmv (comp s/trim
-                 #(s/replace % #"\n" " ")))))
+      (fmv #(some-> %
+                    (s/replace #"\n" " ")
+                    s/trim))))
 
 (defn describe
   ([app-name]
@@ -42,4 +43,5 @@
            :or {path "target/META-INF"}}]
    (dosh (str "mkdir -p " path))
    (spit (str path "/about.edn")
-         intel)))
+         intel)
+   :intel-exported))
