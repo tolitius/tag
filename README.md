@@ -5,6 +5,14 @@ tagging apps with git and other intel
 [![<! release](https://img.shields.io/badge/dynamic/json.svg?label=release&url=https%3A%2F%2Fclojars.org%2Ftolitius%2Ftag%2Flatest-version.json&query=version&colorB=blue)](https://github.com/tolitius/tag/releases)
 [![<! clojars](https://img.shields.io/clojars/v/tolitius/tag.svg)](https://clojars.org/tolitius/tag)
 
+- [why](#why)
+- [how](#how)
+- [show me](#show-me)
+  - [look inside](#look-inside)
+- [composing tags](#composing-tags)
+- [yes, but why not in config?](#yes-but-why-not-in-config)
+- [license](#license)
+
 ## why
 
 once the app is built it is an immutable artifact. this artifact usually has quite a limitted way to describe itself:
@@ -133,7 +141,7 @@ boot, make, and other build tools.
 one intersing side effect of tagging libs or dependencies with `tag` is that the final app jar / uberjar has them all:
 
 ```bash
-$ jar -tvf target/hubble-standalone.jar | grep about 
+$ jar -tvf target/hubble-standalone.jar | grep about
    369 Thu May 07 01:18:32 EDT 2020 META-INF/hubble/about.edn
    331 Thu May 07 01:06:21 EDT 2020 META-INF/tag/about.edn
    301 Thu May 07 01:02:25 EDT 2020 META-INF/mount/about.edn
