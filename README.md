@@ -24,7 +24,7 @@ once the app is built it is an immutable artifact. this artifact usually has qui
 
 by the time artifact is built it would have an `about.edn` file that can be looked at by the app at runtime:
 
-<img src="doc/img/about-hubble.png" width="600px">
+<img src="doc/img/hubble-intel.png" width="600px">
 
 `described-at` in this case would be a build time.
 
