@@ -24,7 +24,7 @@ once the app is built it is an immutable artifact. this artifact usually has qui
 
 by the time artifact is built it would have an `about.edn` file that can be looked at by the app at runtime:
 
-<img src="doc/img/hubble-about.png" width="600px">
+<img src="doc/img/about-hubble.png" width="600px">
 
 `described-at` in this case would be a build time.
 
@@ -48,6 +48,13 @@ by the time artifact is built it would have an `about.edn` file that can be look
   :commit-time "Wed May 6 20:26:03 2020 -0400",
   "commit human (or not)" "'anatoly'",
   :commit-message "readjust a low gain antena for the cat's eye nebula"},
+  :maven
+ {:group-id "tolitius",
+  :artifact-id "hubble",
+  :version "0.1.42",
+  :name "hubble",
+  :description "I explore new worlds",
+  :url "https://github.com/tolitius/hubble"}
  :described-at #inst "2020-05-07T00:55:03.260-00:00"}
 ```
 
