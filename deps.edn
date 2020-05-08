@@ -1,5 +1,6 @@
 {:paths ["src"]
- :deps {} ;; for clarity
+ :deps {org.clojure/data.xml {:mvn/version "0.0.8"}  ;; for pasing pom.xml
+        tolitius/xml-in {:mvn/version "0.1.1"}}
  :aliases
  {:tag {:main-opts ["-m" "tag.core" "tolitius/tag" "I tag apps with immutable intel"]}
   :jar {:extra-deps {seancorfield/depstar {:mvn/version "1.0.94"}}
