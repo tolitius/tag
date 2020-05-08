@@ -26,7 +26,7 @@
 (defn- scoop-maven-intel [xpom]
   (when (pom? xpom)
     (let [pom (-> (slurp xpom)
-                  dx/parse-str)
+                  (dx/parse-str :namespace-aware false))
           in-project (xml/find-first pom [:project])
           project (fn [k] (-> (xml/find-first in-project [k])
                               first))]

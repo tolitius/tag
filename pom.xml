@@ -1,29 +1,54 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
   <modelVersion>4.0.0</modelVersion>
+
   <groupId>tolitius</groupId>
+
   <artifactId>tag</artifactId>
+
   <version>0.1.4</version>
+
   <name>tag</name>
+
   <description>tagging apps with git intel</description>
+
   <url>https://github.com/tolitius/tag</url>
+
   <licenses>
+
     <license>
+
       <name>Eclipse Public License</name>
+
       <url>http://www.eclipse.org/legal/epl-v10.html</url>
+
     </license>
+
   </licenses>
+
   <developers>
+
     <developer>
+
       <name>tolitius</name>
+
     </developer>
+
   </developers>
+
   <scm>
+
     <url>https://github.com/tolitius/tag</url>
+
     <connection>scm:git:git://github.com/tolitius/tag.git</connection>
+
     <developerConnection>scm:git:ssh://git@github.com/tolitius/tag.git</developerConnection>
+
     <tag>HEAD</tag>
+
   </scm>
+
   <dependencies>
     <dependency>
       <groupId>org.clojure</groupId>
@@ -33,7 +58,7 @@
     <dependency>
       <groupId>org.clojure</groupId>
       <artifactId>data.xml</artifactId>
-      <version>0.0.8</version>
+      <version>0.2.0-alpha6</version>
     </dependency>
     <dependency>
       <groupId>tolitius</groupId>
@@ -41,24 +66,32 @@
       <version>0.1.1</version>
     </dependency>
   </dependencies>
+
   <build>
+
     <sourceDirectory>src</sourceDirectory>
+
   </build>
+
   <repositories>
     <repository>
       <id>clojars</id>
       <url>https://repo.clojars.org/</url>
     </repository>
-    <repository>
-      <id>sonatype</id>
-      <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
-    </repository>
   </repositories>
+
   <distributionManagement>
+
     <repository>
+
       <id>clojars</id>
+
       <name>clojars repository</name>
+
       <url>https://clojars.org/repo</url>
+
     </repository>
+
   </distributionManagement>
+
 </project>

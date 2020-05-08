@@ -1,12 +1,11 @@
 {:paths ["src"]
- :deps {org.clojure/data.xml {:mvn/version "0.0.8"}  ;; for pasing pom.xml
+ :deps {org.clojure/data.xml {:mvn/version "0.2.0-alpha6"}  ;; for pasing pom.xml
         tolitius/xml-in {:mvn/version "0.1.1"}}
- :aliases
- {:tag {:main-opts ["-m" "tag.core" "tolitius/tag" "I tag apps with immutable intel"]}
-  :jar {:extra-deps {seancorfield/depstar {:mvn/version "1.0.94"}}
-        :extra-paths ["target/about"]
-        :main-opts ["-m" "hf.depstar.jar" "tag.jar"]}
-  :install {:extra-deps {deps-deploy {:mvn/version "0.0.9"}}
-            :main-opts ["-m" "deps-deploy.deps-deploy" "install" "tag.jar"]}
-  :deploy {:extra-deps {deps-deploy {:mvn/version "0.0.9"}}
-           :main-opts ["-m" "deps-deploy.deps-deploy" "deploy" "tag.jar" "true"]}}}
+ :aliases {:tag {:main-opts ["-m" "tag.core" "tolitius/tag" "I tag apps with immutable intel"]}
+           :jar {:extra-deps {seancorfield/depstar {:mvn/version "1.0.94"}}
+                 :extra-paths ["target/about"]
+                 :main-opts ["-m" "hf.depstar.jar" "tag.jar"]}
+           :install {:extra-deps {deps-deploy {:mvn/version "0.0.9"}}
+                     :main-opts ["-m" "deps-deploy.deps-deploy" "install" "tag.jar"]}
+           :deploy {:extra-deps {deps-deploy {:mvn/version "0.0.9"}}
+                    :main-opts ["-m" "deps-deploy.deps-deploy" "deploy" "tag.jar" "true"]}}}
