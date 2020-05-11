@@ -1,6 +1,6 @@
 (ns tag.core
   (:require [clojure.string :as s]
-            [clojure.java.shell :as sh]
+            [tag.shell :as sh]
             [clojure.java.io :as io]
             [clojure.data.xml :as dx]
             [xml-in.core :as xml]))
@@ -83,5 +83,4 @@
                                         (interpose " ")
                                         (apply str))})
         (export-intel {:app-name app-name})
-        println)
-    (shutdown-agents)))  ;; clojure.java.shell/sh futures still alive in the background: i.e. won't allow to exit
+        println)))
