@@ -139,7 +139,7 @@ this way `tag` can also be used with lein:
 
 ```clojure
 :prep-tasks [["run" "-m" "tag.core/-main"
-                         "hubble" "I explore new worlds"]
+                         "tolitius/hubble" "I explore new worlds"]
              ["compile"]]
 
 
