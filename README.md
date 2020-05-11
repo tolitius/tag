@@ -133,14 +133,14 @@ great success.
 this way `tag` can also be used with lein:
 
 ```clojure
-:prep-tasks [["run" "-m" "tag.core/-main"
-                         "hubble" "I explore new worlds"]
-             ["compile"]]
+;; :jar or :uberjar
 
+:uberjar {:prep-tasks [["run" "-m" "tag.core/-main"
+                        "gossamer" "I add a fine film of cobwebs that covers sphere for proxy and beauty"]
+                       ["compile"]]
+          :resource-paths ["target/about"]
+          ;; .... }
 
-:jar {:resource-paths ["target/about"] ;; ... }
-;; or and uberjar:
-:uberjar {:resource-paths ["target/about"] ;; ... }
 ```
 
 boot, make, and other build tools.
@@ -185,7 +185,8 @@ a likely http route (in this case [reitit](https://github.com/metosin/reitit)) w
       slurp))
 
 (defn edn-resource [path]
-  (-> (slurp-resource path)
+  (-> path
+      slurp-resource
       edn/read-string))
 ```
 
