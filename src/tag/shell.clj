@@ -1,8 +1,6 @@
 (ns tag.shell
   (:require [clojure.java.io :as io]
-            [clojure.java.shell :as sh])
-  (:import (java.io OutputStreamWriter ByteArrayOutputStream StringWriter)
-           (java.nio.charset Charset)))
+            [clojure.java.shell :as sh]))
 
 (defn sh
   "clojure.java.shell/sh relies on futures to retrieve shell results
