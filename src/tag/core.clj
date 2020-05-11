@@ -84,4 +84,4 @@
                                         (apply str))})
         (export-intel {:app-name app-name})
         println)
-    (System/exit 0)))
+    (shutdown-agents)))  ;; clojure.java.shell/sh futures still alive in the background: i.e. won't allow to exit

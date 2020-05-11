@@ -133,14 +133,14 @@ great success.
 this way `tag` can also be used with lein:
 
 ```clojure
-;; :jar or :uberjar
+:prep-tasks [["run" "-m" "tag.core/-main"
+                         "hubble" "I explore new worlds"]
+             ["compile"]]
 
-:uberjar {:prep-tasks [["run" "-m" "tag.core/-main"
-                        "gossamer" "I add a fine film of cobwebs that covers sphere for proxy and beauty"]
-                       ["compile"]]
-          :resource-paths ["target/about"]
-          ;; .... }
 
+:jar {:resource-paths ["target/about"] ;; ... }
+;; or and uberjar:
+:uberjar {:resource-paths ["target/about"] ;; ... }
 ```
 
 boot, make, and other build tools.
