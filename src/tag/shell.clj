@@ -8,7 +8,7 @@
    to exit. while (shutdown-agents) / system.exit would work they break other clojure parent
    processes (i.e. such as cursive repl and others)
 
-   hence this 'sh' function is to prevent futures since tag does not need them."
+   hence this 'sh' function is to prevent stale futures since tag does not need them."
   [& args]
   (let [[cmd opts] (#'clojure.java.shell/parse-args args)
         proc (.exec (Runtime/getRuntime)
