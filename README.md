@@ -67,7 +67,7 @@ and how to export it:
 {:intel-exported-to "target/about/META-INF/tolitius/hubble/about.edn"}
 ```
 
-once the jar is built the `edn` above will (by default) live _inside_ the jar in `./META-INF/[app-name]/about.edn`.
+once the jar is built the `edn` above will (by default) live _inside_ the jar in `META-INF/[app-name]/about.edn`.
 
 so for example if your, say http, app has an `/about` endpoint, it could read this file on start or at runtime and display the immutable intel above.
 
@@ -133,6 +133,11 @@ great success.
 this way `tag` can also be used with lein:
 
 ```clojure
+:dependencies [;; ...
+               [tolitius/tag "x.x.x" :scope "provided"]]
+```
+
+```clojure
 :prep-tasks [["run" "-m" "tag.core/-main"
                          "hubble" "I explore new worlds"]
              ["compile"]]
@@ -169,7 +174,7 @@ a likely http route (in this case [reitit](https://github.com/metosin/reitit)) w
 ["/about"
  {:get (constantly
          {:status 200
-          :body   (tools/edn-resource "META-INF/hubble/about.edn")})}]]
+          :body   (tools/edn-resource "META-INF/tolitius/hubble/about.edn")})}]]
 ```
 
 `tools/edn-resource` might be something like this:
