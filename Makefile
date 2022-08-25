@@ -1,13 +1,14 @@
-.PHONY: clean aot jar tag outdated install deploy tree test repl
+.PHONY: clean aot jar outdated install deploy tree test repl
 
 clean:
 	rm -rf target
 	rm -rf classes
+	rm -rf tag.jar
 
 aot:
 	mkdir classes
 
-jar: clean aot tag
+jar: clean aot
 	clojure -A:jar
 
 outdated:

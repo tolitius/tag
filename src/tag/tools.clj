@@ -31,10 +31,10 @@
 
 (defn map->txt [m]
   (->> (for [[k v] m]
-         (str k " " v "\n"))
+         (str k " \"" v "\"\n"))
        (apply str)))
 
 (defn about->txt [about]
   (-> about
       (map->flat "_")
-      map->text))
+      map->txt))
