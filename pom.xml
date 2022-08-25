@@ -7,7 +7,7 @@
 
   <artifactId>tag</artifactId>
 
-  <version>0.1.7</version>
+  <version>0.1.8</version>
 
   <name>tag</name>
 
@@ -53,7 +53,7 @@
     <dependency>
       <groupId>org.clojure</groupId>
       <artifactId>clojure</artifactId>
-      <version>1.10.1</version>
+      <version>1.11.1</version>
     </dependency>
     <dependency>
       <groupId>org.clojure</groupId>
