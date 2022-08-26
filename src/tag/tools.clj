@@ -29,12 +29,19 @@
   (->> (mapv->flat m key->prop connect)
        (into {})))
 
-(defn map->txt [m]
-  (->> (for [[k v] m]
-         (str k " \"" v "\"\n"))
-       (apply str)))
+(defn map->prometheus [m]
+  (as-> (for [[k v] m]
+          (str k "=\"" v "\",")) xs    ;; make "k=v," pairs
+        (apply str xs)
+        (str "about_me{" xs)           ;; prefix with about_me{
+        (s/replace xs #"\?|\(|\)" "")  ;; remove ? and ()
+        (s/replace xs #",$" "}")))     ;; add last }
 
-(defn about->txt [about]
+(defn about->prometheus
+  "converts a map (from about.edn) to prometheus text based format:
+   https://github.com/prometheus/docs/blob/main/content/docs/instrumenting/exposition_formats.md#text-based-format"
+  [about]
   (-> about
       (map->flat "_")
-      map->txt))
+      map->prometheus
+      (str " 42")))      ;; add prometheus counter
