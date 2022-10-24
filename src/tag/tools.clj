@@ -34,6 +34,7 @@
           (str k "=\"" v "\",")) xs    ;; make "k=v," pairs
         (apply str xs)
         (str "about_me{" xs)           ;; prefix with about_me{
+        (s/replace xs #"\"" "'")       ;; double to single quotes
         (s/replace xs #"\?|\(|\)" "")  ;; remove ? and ()
         (s/replace xs #",$" "}")))     ;; add last }
 
