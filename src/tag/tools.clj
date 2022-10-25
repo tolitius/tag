@@ -34,7 +34,6 @@
           (str k "=\"" v "\",")) xs    ;; make "k=v," pairs
         (apply str xs)
         (str "about_me{" xs)           ;; prefix with about_me{
-        (s/replace xs #"\"" "'")       ;; double to single quotes
         (s/replace xs #"\?|\(|\)" "")  ;; remove ? and ()
         (s/replace xs #",$" "}")))     ;; add last }
 
@@ -43,6 +42,8 @@
    https://github.com/prometheus/docs/blob/main/content/docs/instrumenting/exposition_formats.md#text-based-format"
   [about]
   (-> about
+      (update-in [:git :commit-message]
+                 s/replace #"\"" "'")   ;; double quotes to single within a commit message
       (map->flat "_")
       map->prometheus
-      (str " 42")))      ;; add prometheus counter
+      (str " 42")))                     ;; add prometheus counter
