@@ -19,3 +19,7 @@ out/
 *.iws
 .eastwood
 .rebel_readline_history
+.DS_Store
+deps-hierarchy.txt
+deps-result.txt
+deps-tree-parsing.txt

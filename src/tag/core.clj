@@ -1,9 +1,10 @@
 (ns tag.core
   (:require [clojure.string :as s]
-            [tag.shell :as sh]
             [clojure.java.io :as io]
             [clojure.data.xml :as dx]
-            [xml-in.core :as xml]))
+            [xml-in.core :as xml]
+            [tag.shell :as sh]
+            [tag.deps :as d]))
 
 (defn- fmv
   "apply f to each value v of map m"
@@ -63,25 +64,23 @@
        (assoc intel :maven maven)
        intel))))
 
-(defn export-intel
-  ([intel]
-   (export-intel intel {}))
-  ([intel {:keys [app-name path filename]
-           :or {filename "about.edn"
-                app-name "noname"
-                path "target/about/META-INF/"}}]
-   (let [fpath (str path app-name "/")]
-     (dosh (str "mkdir -p " fpath))
-     (spit (str fpath filename)
-           intel)
-     {:intel-exported-to (str fpath filename)})))
+(defn export-intel [app-name
+                    {:keys [about deps exclude-transitive path]}]
+  (let [fpath (str (or path "target/about/META-INF/")
+                   app-name "/")
+        to-about (str fpath "about.edn")
+        to-deps (str fpath "deps.edn")]
+    (dosh (str "mkdir -p " fpath))
+    (spit to-about about)
+    (spit to-deps deps)
+    {:intel-exported-to {:about to-about
+                         :deps to-deps}}))
 
 (defn -main [& args]
   (when (< (count args) 2)
-    (throw (ex-info "tag takes two params: 'app-name' and 'description'" {:args-passed args})))
-  (let [[app-name & about] args]
-    (-> (describe app-name {:about (->> about
-                                        (interpose " ")
-                                        (apply str))})
-        (export-intel {:app-name app-name})
-        println)))
+    (throw (ex-info "tag takes at least two params: 'app-name' and 'description'" {:args-passed args})))
+  (let [[app-name description exclude-transitive] args]
+    (->> {:about (describe app-name {:about description})
+          :deps (d/find-deps {:exclude-transitive exclude-transitive})}
+         (export-intel app-name)
+         println)))
