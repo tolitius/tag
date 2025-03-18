@@ -27,11 +27,24 @@
     {}
     lib-map))
 
+(defn- extract-version-from-path
+  "extract the actual version from a jar path, checking if it's a snapshot based on -SNAPSHOT suffix.
+   returns a map with :version and :snapshot? keys.
+   example: '/path/foobar-0.3.2-20250311.201842-115.jar' with :mvn/version '0.3.2-SNAPSHOT'
+            -> {:version '0.3.2-20250311.201842-115' :snapshot? true}"
+  [lib-map lib path]
+  (let [mvn-version (:mvn/version (get lib-map lib))
+        snapshot? (and mvn-version (s/ends-with? mvn-version "-SNAPSHOT"))
+        filename (last (s/split path #"/"))
+        version-part (second (re-find #"(?i)^[^-]+-(.+)\.jar$" filename))]
+    {:version (if snapshot? version-part mvn-version)
+     :snapshot? snapshot?}))
+
 (defn- build-tree
   "recursively build a dependency tree for the given library."
   [lib-map deps-map lib exclude-transitive]
   (let [lib-info (get lib-map lib)
-        version (:mvn/version lib-info)
+        {:keys [version snapshot?]} (extract-version-from-path lib-map lib (first (:paths lib-info)))
         children (get deps-map lib)
         child-nodes (if (exclude-transitive lib)
                       "..."  ;; replace transitive deps with "..." if excluded
@@ -40,6 +53,8 @@
                                 {child-lib (build-tree lib-map deps-map child-lib exclude-transitive)})
                               (sort children))))
         node (cond-> {:version version}
+               snapshot?
+               (assoc :snapshot? true)
                (contains? lib-info :exclusions)
                (assoc :status :excluded)
                child-nodes
