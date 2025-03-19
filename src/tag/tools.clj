@@ -47,5 +47,5 @@
                    s/replace #"\"" "'")   ;; double quotes to single within a commit message
         (map->flat "_")
         map->prometheus
-        (str " 42"))
-    {:about :not-found}))                     ;; add prometheus counter
+        (str " 42"))                      ;; add prometheus counter
+    {:error "Input value is missing"}))
