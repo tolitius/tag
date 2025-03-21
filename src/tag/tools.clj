@@ -41,9 +41,11 @@
   "converts a map (from about.edn) to prometheus text based format:
    https://github.com/prometheus/docs/blob/main/content/docs/instrumenting/exposition_formats.md#text-based-format"
   [about]
-  (-> about
-      (update-in [:git :commit-message]
-                 s/replace #"\"" "'")   ;; double quotes to single within a commit message
-      (map->flat "_")
-      map->prometheus
-      (str " 42")))                     ;; add prometheus counter
+  (if about
+    (-> about
+        (update-in [:git :commit-message]
+                   s/replace #"\"" "'")   ;; double quotes to single within a commit message
+        (map->flat "_")
+        map->prometheus
+        (str " 42"))                      ;; add prometheus counter
+    {:error "missing app details"}))
