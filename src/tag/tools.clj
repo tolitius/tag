@@ -48,4 +48,4 @@
         (map->flat "_")
         map->prometheus
         (str " 42"))                      ;; add prometheus counter
-    {:error "Input value is missing"}))
+    {:error "missing app details"}))
